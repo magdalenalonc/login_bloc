@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/login_screen.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -7,9 +9,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Log Me In',
-      home: Scaffold(
-        body: LoginScreen(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        appBarTheme:
+            AppBarTheme.of(context).copyWith(backgroundColor: Colors.teal),
       ),
+      home: const LoginScreen(),
     );
   }
 }
