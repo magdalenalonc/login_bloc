@@ -1,4 +1,4 @@
-package com.example.login_bloc
+package com.magdalenalonc.login_bloc
 
 import io.flutter.embedding.android.FlutterActivity
 
