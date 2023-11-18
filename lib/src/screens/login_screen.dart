@@ -1,25 +1,41 @@
 import 'package:flutter/material.dart';
 
+import '../blocs/bloc.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   Widget emailField() {
-    return const TextField(
-      decoration: InputDecoration(
-        labelText: 'Email Address',
-        hintText: 'you@example.com',
-      ),
-      keyboardType: TextInputType.emailAddress,
+    return StreamBuilder(
+      stream: bloc.email,
+      builder: (context, snapshot) {
+        return TextField(
+          decoration: InputDecoration(
+            labelText: 'Email Address',
+            hintText: 'you@example.com',
+            errorText: snapshot.hasError ? snapshot.error.toString() : null,
+          ),
+          keyboardType: TextInputType.emailAddress,
+          onChanged: bloc.changeEmail,
+        );
+      },
     );
   }
 
   Widget passwordField() {
-    return const TextField(
-      decoration: InputDecoration(
-        labelText: 'Password',
-      ),
-      obscureText: true,
-      autocorrect: false,
+    return StreamBuilder(
+      stream: bloc.password,
+      builder: (context, snapshot) {
+        return TextField(
+          decoration: InputDecoration(
+            labelText: 'Password',
+            errorText: snapshot.hasError ? snapshot.error.toString() : null,
+          ),
+          obscureText: true,
+          autocorrect: false,
+          onChanged: bloc.changePassword,
+        );
+      },
     );
   }
 
