@@ -40,10 +40,17 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget submitButton() {
-    return ElevatedButton(
-      child: const Text('Submit'),
-      onPressed: () {},
+  Widget submitButton(Bloc bloc) {
+    return StreamBuilder(
+      stream: bloc.submitValid,
+      builder: (context, snapshot) {
+        return ElevatedButton(
+          onPressed: snapshot.hasData
+              ? bloc.submit
+              : null,
+          child: const Text('Submit'),
+        );
+      },
     );
   }
 
@@ -64,7 +71,7 @@ class LoginScreen extends StatelessWidget {
             emailField(bloc),
             passwordField(bloc),
             const SizedBox(height: 25.0),
-            submitButton(),
+            submitButton(bloc),
           ],
         ),
       ),
