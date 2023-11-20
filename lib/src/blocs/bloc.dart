@@ -5,10 +5,9 @@ import 'package:rxdart/rxdart.dart';
 import 'validators.dart';
 
 class Bloc with Validators {
-  final StreamController<String> _emailController =
-      StreamController<String>.broadcast();
-  final StreamController<String> _passwordController =
-      StreamController<String>.broadcast();
+  // BehaviorSubject is a special StreamController that captures the latest item that has been added to the controller, and emits that as the first item to any new listener
+  final _emailController = BehaviorSubject<String>();
+  final _passwordController = BehaviorSubject<String>();
 
   // Add data to stream
   Stream<String> get email => _emailController.stream.transform(validateEmail);
@@ -26,7 +25,11 @@ class Bloc with Validators {
   Function(String) get changePassword => _passwordController.sink.add;
 
   submit() {
-    
+    final validEmail = _emailController.value;
+    final validPassword = _passwordController.value;
+
+    print('Email is $validEmail');
+    print('Password is $validPassword');
   }
 
   dispose() {
